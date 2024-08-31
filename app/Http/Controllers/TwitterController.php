@@ -70,8 +70,10 @@ class TwitterController extends Controller
             $access_token['oauth_token_secret']
         );
 
-        // Publicar un tweet
-        $status = $connection->post("statuses/update", ["status" => $request->input('tweet')]);
+        // Publicar un tweet en formato application/x-www-form-urlencoded
+        $status = $connection->post("statuses/update", [
+            "status" => $request->input('tweet')
+        ], true); // Enviar datos como application/x-www-form-urlencoded
 
         if ($connection->getLastHttpCode() == 200) {
             return response()->json(['message' => 'Tweet publicado con éxito']);
