@@ -91,8 +91,8 @@ $app->configure('app');
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
 /*
@@ -116,7 +116,12 @@ $app->withFacades();
 $app->withEloquent();
 
 $app->middleware([
-    App\Http\Middleware\CorsMiddleware::class
+    App\Http\Middleware\CorsMiddleware::class,
+    Illuminate\Session\Middleware\StartSession::class
 ]);
+
+$app->register(Illuminate\Session\SessionServiceProvider::class);
+
+$app->configure('services');
 
 return $app;

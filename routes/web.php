@@ -13,8 +13,22 @@
 |
 */
 
+use App\Http\Controllers\TwitterController;
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
 $router->get('/frase-aleatoria', 'FraseController@aleatoria');
+
+/*
+$router->get('/login/twitter', [TwitterController::class, 'redirectToTwitter']);
+$router->get('/callback', [TwitterController::class, 'handleTwitterCallback']);
+$router->post('/tweet', [TwitterController::class, 'postTweet'])->name('twitter.tweet');
+*/
+
+// Archivo: routes/web.php
+
+$router->get('/login/twitter', ['uses' => 'TwitterController@redirectToTwitter']);
+$router->get('/callback', ['uses' => 'TwitterController@handleTwitterCallback']);
+$router->post('/tweet', ['uses' => 'TwitterController@postTweet']);
